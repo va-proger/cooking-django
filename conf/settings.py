@@ -18,11 +18,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    "jazzmin",
+    "unfold",  # before django.contrib.admin
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms",  # optional, if special form elements are needed
+    "unfold.contrib.inlines",  # optional, if special inlines are needed
+    "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    "unfold.contrib.guardian",  # optional, if django-guardian package is used
+    "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -127,7 +132,13 @@ TINYMCE_DEFAULT_CONFIG = {
     'toolbar': 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 }
 
-JAZZMIN_SETTINGS = {
-    "site_title": "Кулинарный блог",
-    "site_brand": "Кулинарный",
+UNFOLD = {
+    "SITE_TITLE": "Личный блог - VPROGER",
+    "SITE_HEADER": "VPROGER",
+    "SITE_SUBHEADER": "Личный блог",
+    "DASHBOARD_CALLBACK": "cooking.views.dashboard_callback",
+
 }
+
+MEDIA_URL = '/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '')

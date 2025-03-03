@@ -11,3 +11,13 @@ def index(request):
         'categories': categories,
     }
     return render(request, 'cooking/index.html', context)
+
+def dashboard_callback(request, context):
+    context.update({
+        "custom_variable": "value",
+    })
+
+    return context
+
+def badge_callback_sidebar(request):
+    return ''
