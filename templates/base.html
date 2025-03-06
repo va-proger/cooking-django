@@ -1,76 +1,150 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="{% if site_settings.allow_indexing %}index,follow{% else %}noindex,nofollow{% endif %}">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
 
-        <title>{% block title %}Мой сайт{% endblock %}</title>
-    </head>
-    <body class="d-flex flex-column min-vh-100">
+</head>
+<body class="bg-light-background text-light-text flex flex-col min-h-screen">
+    {% block test %}
+    testing
+    {% endblock %}
 
-        <header>
-            <!--   Header-->
-            <nav class="navbar navbar-expand-lg bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="#!">
-                        <img src="#!" width="75" alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0"><li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Главная</a></li></ul>
-                        <div class="d-flex">
-                            <form class="d-flex" role="search" method="get" action="#!">
-                                <input name="q" class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-                                <button class="btn btn-outline-success" type="submit">Поиск</button>
-                            </form>
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <!--  Users-->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                        Здравствуйте пользователь
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#!">Моя страница</a></li>
-                                        <li><a class="dropdown-item" href="#!">Добавить статью</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#!">Выход</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <button id="menu-toggle" class="lg:hidden text-light-text dark:text-dark-text">
+                &#9776;
+            </button>
+            <h1 class="text-xl font-bold text-center lg:text-left">{{ SITE_HEADER }}</h1>
+            <nav id="menu" class="z-10 fixed top-0 left-0 w-64 h-full bg-white shadow-md transform -translate-x-full transition-transform lg:relative lg:translate-x-0 lg:flex lg:space-x-6 lg:w-auto lg:h-auto lg:bg-transparent lg:shadow-none">
+                <button id="close-menu" class="z-20 absolute top-2 right-2 text-light-text dark:text-dark-text lg:hidden">✖</button>
+                <div class="relative group p-4">
+                    <button class="text-light-text dark:text-dark-text">Посты</button>
+                    <div class="absolute hidden bg-white dark:bg-dark-card shadow-md group-hover:block">
+                        {% for category in categories %}
+                            <a href="{{ category.slug }}" class="flex align-center gap-4 px-4 py-2 hover:bg-light-background dark:hover:bg-dark-background">{{ category.title }}
+                                <span>
+                                    {{ category.num_posts }}
+                                </span>
+                            </a>
+                        {% endfor %}
                     </div>
                 </div>
-            </nav>
-        </header>
-            <!-- Main body-->
-
-        <main>
-            <div class="container">
-                <h2>Кулинарный портал</h2>
-                <div class="d-flex justify-content-between">
-
-
-                    {% block sidebar %}
-                        <p>Категории будут здесь.</p>
-                    {% endblock %}
-                    {% block content %}
-                        <p>Контент будет здесь.</p>
-                    {% endblock %}
-
+                <div class="relative group p-4">
+                    <button class="text-light-text dark:text-dark-text">Проекты</button>
+                    <div class="absolute hidden bg-white dark:bg-dark-card shadow-md group-hover:block">
+                        <a href="#" class="block px-4 py-2 hover:bg-light-background dark:hover:bg-dark-background">Раздел 1</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-light-background dark:hover:bg-dark-background">Раздел 2</a>
+                    </div>
                 </div>
+                <a href="#" class="text-light-text dark:text-dark-text p-4">Галерея</a>
+                <a href="#" class="text-light-text dark:text-dark-text p-4">Обо мне</a>
+            </nav>
+            <div class="wrapper-button flex justify-center items-center">
+                <div class="relative mr-4">
+  <!-- Search Icon (visible on mobile) -->
+  <button id="search-toggle" class="p-2 text-light-text dark:text-dark-text hover:text-light-primary dark:hover:text-dark-primary">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+  </button>
+
+  <!-- Search Popup (hidden by default) -->
+  <div id="search-popup" class="hidden absolute right-0 top-full mt-2 w-screen max-w-md bg-white dark:bg-dark-card shadow-lg rounded-lg z-20 overflow-hidden lg:w-96">
+    <div class="p-4">
+      <!-- Search Input -->
+      <div class="relative">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Поиск по сайту..."
+          class="w-full p-2 pl-10 border border-light-border dark:border-dark-border rounded-lg bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary"
+        >
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Search Results Container -->
+      <div id="search-results" class="mt-4 max-h-96 overflow-y-auto">
+        <!-- Results will be populated here dynamically -->
+        <div class="py-2 text-sm text-gray-500 dark:text-gray-400 text-center hidden" id="no-results">
+          Ничего не найдено
+        </div>
+
+        <div id="results-container">
+          <!-- Sample Result Item (Will be generated dynamically) -->
+          <a href="#" class="block p-3 hover:bg-light-background dark:hover:bg-dark-background rounded-lg mb-1 transition">
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded bg-gray-200 dark:bg-gray-700 flex-shrink-0"></div>
+              <div class="ml-3 flex-grow">
+                <h5 class="font-medium text-light-text dark:text-dark-text">Заголовок результата</h5>
+                <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">Небольшое описание или отрывок из текста с <span class="bg-light-primary/20 dark:bg-dark-primary/30">выделенным</span> ключевым словом поиска</p>
+              </div>
             </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                <button id="theme-toggle" onclick="toggleTheme()" class="ml-4 px-3 py-2 bg-light-background dark:bg-dark-background rounded">🌙</button>
+            </div>
+            </div>
+            <!-- Search Component for Header -->
+
+    </header>
+    <main class="w-full max-w-screen-xl mx-auto">
+        <div class="container mx-auto">
+            {% block content %}
+                <p>Контент будет здесь.</p>
+            {% endblock %}
+        </div>
     </main>
-            <!-- Footer-->
-
-
-     <footer class="bg-light text-center text-lg-start mt-auto">
-        <div class="container">
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0);">© 2023 Copyright: VProger</div>
+    <footer class="bg-gray-800 text-white py-4 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-white hover:text-light-accent">Обо мне</a>
+                <a href="#" class="text-white hover:text-light-accent">Мои работы</a>
+            </div>
+            <div class="flex justify-center space-x-4 my-4">
+                <a href="https://vk.com/your_vk_profile" target="_blank" class="text-light-text dark:text-dark-text hover:opacity-75 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 97.75 97.75" fill="currentColor">
+                    <path d="M48.875,0C21.883,0,0,21.882,0,48.875S21.883,97.75,48.875,97.75S97.75,75.868,97.75,48.875S75.867,0,48.875,0z M73.667,54.161c2.278,2.225,4.688,4.319,6.733,6.774c0.906,1.086,1.76,2.209,2.41,3.472c0.928,1.801,0.09,3.776-1.522,3.883 l-10.013-0.002c-2.586,0.214-4.644-0.829-6.379-2.597c-1.385-1.409-2.67-2.914-4.004-4.371c-0.545-0.598-1.119-1.161-1.803-1.604
+                            c-1.365-0.888-2.551-0.616-3.333,0.81c-0.797,1.451-0.979,3.059-1.055,4.674c-0.109,2.361-0.821,2.978-3.19,3.089 c-5.062,0.237-9.865-0.531-14.329-3.083c-3.938-2.251-6.986-5.428-9.642-9.025c-5.172-7.012-9.133-14.708-12.692-22.625
+                            c-0.801-1.783-0.215-2.737,1.752-2.774c3.268-0.063,6.536-0.055,9.804-0.003c1.33,0.021,2.21,0.782,2.721,2.037 c1.766,4.345,3.931,8.479,6.644,12.313c0.723,1.021,1.461,2.039,2.512,2.76c1.16,0.796,2.044,0.533,2.591-0.762
+                            c0.35-0.823,0.501-1.703,0.577-2.585c0.26-3.021,0.291-6.041-0.159-9.05c-0.28-1.883-1.339-3.099-3.216-3.455 c-0.956-0.181-0.816-0.535-0.351-1.081c0.807-0.944,1.563-1.528,3.074-1.528l11.313-0.002c1.783,0.35,2.183,1.15,2.425,2.946
+                            l0.01,12.572c-0.021,0.695,0.349,2.755,1.597,3.21c1,0.33,1.66-0.472,2.258-1.105c2.713-2.879,4.646-6.277,6.377-9.794 c0.764-1.551,1.423-3.156,2.063-4.764c0.476-1.189,1.216-1.774,2.558-1.754l10.894,0.013c0.321,0,0.647,0.003,0.965,0.058
+                            c1.836,0.314,2.339,1.104,1.771,2.895c-0.894,2.814-2.631,5.158-4.329,7.508c-1.82,2.516-3.761,4.944-5.563,7.471 C71.48,50.992,71.611,52.155,73.667,54.161z"/>
+                    </svg>
+                </a>
+                <a href="https://facebook.com/your_facebook_profile" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-primary dark:hover:text-dark-primary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                    </svg>
+                </a>
+                <a href="https://instagram.com/your_instagram_profile" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-primary dark:hover:text-dark-primary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.148-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/your_github_profile" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-primary dark:hover:text-dark-primary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="mt-4">&copy; 2021 - {% now "Y" %} VProger. Все права защищены.</p>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    </body>
+{% load static %}
+    <script src="{% static '/js/scripts.js' %}"></script>
+</body>
 </html>

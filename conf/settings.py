@@ -1,6 +1,7 @@
 from pathlib import Path
 import os.path
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,8 +35,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'cooking.apps.CookingConfig',
-    'tinymce',
+    "blog.apps.BlogConfig",
+    "tinymce",
+    "solo",
 ]
 
 MIDDLEWARE = [
@@ -46,6 +48,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware"
 ]
 
 ROOT_URLCONF = "conf.urls"
@@ -53,7 +56,7 @@ ROOT_URLCONF = "conf.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -61,6 +64,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "blog.context_processors.site_settings"
             ],
         },
     },
@@ -123,22 +127,26 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 TINYMCE_DEFAULT_CONFIG = {
-    'skin': 'oxide-dark',  # Тёмная тема
-    'content_css': 'dark',  # Тёмный фон контента
-    'height': 500,
-    'width': '100%',
-    'menubar': 'file edit view insert format tools table help',
-    'plugins': 'advlist autolink lists link image charmap print preview anchor',
-    'toolbar': 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    "skin": "oxide-dark",  # Тёмная тема
+    "content_css": "dark",  # Тёмный фон контента
+    "height": 500,
+    "width": "100%",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap print preview anchor",
+    "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
 }
-
+ADMIN_SITE = "admin"
 UNFOLD = {
     "SITE_TITLE": "Личный блог - VPROGER",
     "SITE_HEADER": "VPROGER",
     "SITE_SUBHEADER": "Личный блог",
-    "DASHBOARD_CALLBACK": "cooking.views.dashboard_callback",
-
+    "DASHBOARD_CALLBACK": "blog.views.dashboard_callback",
 }
 
-MEDIA_URL = '/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '')
+MEDIA_URL = "/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'blog/static'),  # Путь к статическим файлам вашего приложения
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
