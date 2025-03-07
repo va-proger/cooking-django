@@ -1,0 +1,42 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="site-settings">
+    <h1>Настройки сайта</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="section">
+            <h2>Основные параметры</h2>
+            {{ form.site_name.label_tag }} {{ form.site_name }}
+            {{ form.domains.label_tag }} {{ form.domains }}
+            {{ form.main_phone.label_tag }} {{ form.main_phone }}
+            {{ form.email.label_tag }} {{ form.email }}
+        </div>
+
+        <div class="section">
+            <h2>Социальные сети</h2>
+            {{ form.vk_url.label_tag }} {{ form.vk_url }}
+            {{ form.github_url.label_tag }} {{ form.github_url }}
+            {{ form.facebook_url.label_tag }} {{ form.facebook_url }}
+            {{ form.instagram_url.label_tag }} {{ form.instagram_url }}
+        </div>
+
+        <div class="section advanced">
+            <h2>Технические настройки</h2>
+            <div class="checkbox">
+                {{ form.maintenance_mode }} {{ form.maintenance_mode.label_tag }}
+            </div>
+            <div class="checkbox">
+                {{ form.allow_indexing }} {{ form.allow_indexing.label_tag }}
+            </div>
+            {{ form.time_format.label_tag }} {{ form.time_format }}
+            {{ form.locale.label_tag }} {{ form.locale }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

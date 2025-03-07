@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "tinymce",
     "solo",
+    "vk_bot",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'blog/static'),  # Путь к статическим файлам вашего приложения
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+CELERY_BEAT_SCHEDULE = {
+    'auto-post-to-vk': {
+        'task': 'vk_bot.tasks.auto_post_to_vk',
+        'schedule': 300.0,  # Каждые 5 минут
+    },
+}
+
+VK_GROUP_ID = os.getenv("VK_GROUP_ID")
+VK_USER_ACCESS_TOKEN = os.getenv("VK_USER_ACCESS_TOKEN")
+VK_GROUP_ACCESS_TOKEN = os.getenv("VK_GROUP_ACCESS_TOKEN")
+VK_CONFIRMATION_CODE = os.getenv("VK_CONFIRMATION_CODE")
+VK_SECRET_KEY = os.getenv("VK_SECRET_KEY")
