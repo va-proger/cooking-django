@@ -1,7 +1,7 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
 from unfold.admin import ModelAdmin
-from blog.models import SiteSettings
+from vproger.models import SiteSettings
 
 @admin.register(SiteSettings, site=admin.site)
 class SiteSettingsAdmin(SingletonModelAdmin, ModelAdmin):

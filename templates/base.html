@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="{% if site_settings.allow_indexing %}index,follow{% else %}noindex,nofollow{% endif %}">
     <title>{% block title %}Мой сайт{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<!--    <script src="https://cdn.tailwindcss.com"></script>-->
     {% load static %}
     <link rel="stylesheet" href="{% static '/css/styles.css' %}">
 
@@ -144,7 +144,8 @@
             <p class="mt-4">&copy; 2021 - {% now "Y" %} VProger. Все права защищены.</p>
         </div>
     </footer>
-{% load static %}
+    {% load static %}
+    <script src="{% static '/js/tailwind-config.js' %}"></script>
     <script src="{% static '/js/scripts.js' %}"></script>
 </body>
 </html>

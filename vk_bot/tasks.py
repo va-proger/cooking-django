@@ -1,6 +1,6 @@
 from celery import shared_task
 from .services import VKService
-from blog.models import Post  # Предполагается, что модель постов блога уже существует
+from vproger.models import Post  # Предполагается, что модель постов блога уже существует
 
 @shared_task
 def auto_post_to_vk():

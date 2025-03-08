@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from .base import SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, ContentBaseModel
 from .category import Category
@@ -20,10 +21,21 @@ class Post(SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, Conte
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="posts", verbose_name="Категория"
     )
+
     tags = models.ManyToManyField(Tag, related_name="posts", blank=True, verbose_name="Теги")
+    ''' поля для вк бота '''
+    post_id = models.CharField(max_length=255, blank=True, editable=False, )
+    vk_group_id = models.CharField(max_length=50,verbose_name="vk_group_id группы", default=settings.VK_GROUP_ID,  editable=False,)
+    from_django = models.BooleanField(default=False, verbose_name="Из сайта")
+
+    def save(self, *args, **kwargs):
+        # Всегда устанавливаем значение из настроек
+        self.vk_group_id = settings.VK_GROUP_ID
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        fields = [str(self.vk_group_id), str(self.title)]
+        return " - ".join(fields)
 
     def get_safe_preview(self):
         return mark_safe(self.preview_content)

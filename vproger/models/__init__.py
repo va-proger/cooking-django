@@ -2,6 +2,7 @@ from .base import SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel
 from .category import Category
 from .post import Post
 from .tag import Tag
+from .comment import Comment
 from .site_setting import SiteSettings
 
 __all__ = [
@@ -13,5 +14,6 @@ __all__ = [
     "Category",
     "Post",
     "Tag",
+    "Comment",
     "SiteSettings",
 ]

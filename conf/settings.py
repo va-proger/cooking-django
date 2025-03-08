@@ -22,6 +22,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "vproger",
     "unfold",  # before django.contrib.admin
     "unfold.contrib.filters",  # optional, if special filters are needed
     "unfold.contrib.forms",  # optional, if special form elements are needed
@@ -35,10 +36,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "blog.apps.BlogConfig",
     "tinymce",
     "solo",
     "vk_bot",
+    'tailwind',
+
 ]
 
 MIDDLEWARE = [
@@ -49,7 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.locale.LocaleMiddleware"
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "conf.urls"
@@ -57,7 +59,7 @@ ROOT_URLCONF = "conf.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "templates"), os.path.join(BASE_DIR, "vproger/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -65,7 +67,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "blog.context_processors.site_settings"
+                "vproger.context_processors.site_settings"
             ],
         },
     },
@@ -141,14 +143,14 @@ UNFOLD = {
     "SITE_TITLE": "Личный блог - VPROGER",
     "SITE_HEADER": "VPROGER",
     "SITE_SUBHEADER": "Личный блог",
-    "DASHBOARD_CALLBACK": "blog.views.dashboard_callback",
+    "DASHBOARD_CALLBACK": "vproger.views.dashboard_callback",
 }
 
 MEDIA_URL = "/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'blog/static'),  # Путь к статическим файлам вашего приложения
+    os.path.join(BASE_DIR, 'vproger/static'),  # Путь к статическим файлам вашего приложения
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 CELERY_BEAT_SCHEDULE = {
@@ -163,3 +165,9 @@ VK_USER_ACCESS_TOKEN = os.getenv("VK_USER_ACCESS_TOKEN")
 VK_GROUP_ACCESS_TOKEN = os.getenv("VK_GROUP_ACCESS_TOKEN")
 VK_CONFIRMATION_CODE = os.getenv("VK_CONFIRMATION_CODE")
 VK_SECRET_KEY = os.getenv("VK_SECRET_KEY")
+
+
+TAILWIND_APP_NAME = 'vproger'
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
