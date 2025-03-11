@@ -4,6 +4,7 @@ from .base import SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel
 from .category import Category
 from .tag import Tag
 from django.utils.safestring import mark_safe
+from markdownx.models import MarkdownxField
 
 class PostQuerySet(models.QuerySet):
     def popular(self):
@@ -21,7 +22,7 @@ class Post(SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, Conte
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="posts", verbose_name="Категория"
     )
-
+    # detail_content_markdown = MarkdownxField(default="Скоро тут будет статья", blank=True, verbose_name="Текст статьи - анонс")
     tags = models.ManyToManyField(Tag, related_name="posts", blank=True, verbose_name="Теги")
     ''' поля для вк бота '''
     post_id = models.CharField(max_length=255, blank=True, editable=False, )
@@ -39,6 +40,11 @@ class Post(SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, Conte
 
     def get_safe_preview(self):
         return mark_safe(self.preview_content)
+
+    def tags_display(self):
+        return ", ".join([tag.title for tag in self.tags.all()])
+
+    tags_display.short_description = "Tags"
 
     class Meta:
         verbose_name = "Пост"

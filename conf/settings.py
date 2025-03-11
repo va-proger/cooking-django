@@ -22,6 +22,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+        "markdownx",
     "vproger",
     "unfold",  # before django.contrib.admin
     "unfold.contrib.filters",  # optional, if special filters are needed
@@ -171,3 +172,5 @@ TAILWIND_APP_NAME = 'vproger'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+MARKDOWNX_MARKDOWNIFY_FUNCTION = 'markdownx.utils.markdownify'

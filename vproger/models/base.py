@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.fields import TextField
 from .utils.slugs import generate_unique_slug
 
-
 class SlugMixin(models.Model):
     slug = models.CharField(max_length=250, unique=True, blank=True)
 
