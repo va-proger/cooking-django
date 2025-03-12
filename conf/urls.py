@@ -22,6 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("vproger.urls")),
     path("", include("vk_bot.urls")),
-path('markdownx/', include('markdownx.urls')),
+
 
 ]

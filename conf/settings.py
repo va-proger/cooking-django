@@ -22,7 +22,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-        "markdownx",
+
     "vproger",
     "unfold",  # before django.contrib.admin
     "unfold.contrib.filters",  # optional, if special filters are needed
@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     "tinymce",
     "solo",
     "vk_bot",
-    'tailwind',
-
+    "markdownx",
 ]
 
 MIDDLEWARE = [
@@ -172,5 +171,10 @@ TAILWIND_APP_NAME = 'vproger'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra',
+    'markdown.extensions.codehilite',
+]
 
 MARKDOWNX_MARKDOWNIFY_FUNCTION = 'markdownx.utils.markdownify'
+MARKDOWNX_EDITOR_TEMPLATE = 'markdownx/widgets/textarea.html'

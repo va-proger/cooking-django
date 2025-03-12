@@ -1,5 +1,8 @@
 from django.conf import settings
 from django.db import models
+from django.db.models.fields import TextField
+from django.urls import reverse
+
 from .base import SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, ContentBaseModel
 from .category import Category
 from .tag import Tag
@@ -22,12 +25,15 @@ class Post(SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, Conte
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="posts", verbose_name="Категория"
     )
-    # detail_content_markdown = MarkdownxField(default="Скоро тут будет статья", blank=True, verbose_name="Текст статьи - анонс")
+    detail_content_markdown = TextField(default="Скоро тут будет статья", blank=True, verbose_name="Текст статьи - markdown")
     tags = models.ManyToManyField(Tag, related_name="posts", blank=True, verbose_name="Теги")
     ''' поля для вк бота '''
     post_id = models.CharField(max_length=255, blank=True, editable=False, )
     vk_group_id = models.CharField(max_length=50,verbose_name="vk_group_id группы", default=settings.VK_GROUP_ID,  editable=False,)
     from_django = models.BooleanField(default=False, verbose_name="Из сайта")
+
+    def get_absolute_url(self):
+        return reverse('detail_post', args=[self.category.slug, self.slug])
 
     def save(self, *args, **kwargs):
         # Всегда устанавливаем значение из настроек
