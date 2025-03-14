@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.fields import TextField
 from django.urls import reverse
 
-from .base import SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, ContentBaseModel
+from .base import SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, ContentBaseModel, SeoMixin
 from .category import Category
 from .tag import Tag
 from django.utils.safestring import mark_safe
@@ -17,7 +17,7 @@ class PostQuerySet(models.QuerySet):
         return self.filter(category=category)
 
 
-class Post(SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, ContentBaseModel):
+class Post(SlugMixin, TimeStampedModel, PublishableModel, ImagesBaseModel, ContentBaseModel, SeoMixin):
     objects = PostQuerySet.as_manager()
     title = models.CharField(max_length=255, verbose_name="Заголовок статьи")
 

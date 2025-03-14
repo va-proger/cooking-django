@@ -15,7 +15,7 @@ from vk_bot.services import VKService
 csrf_protect_m = method_decorator(csrf_protect)
 
 
-@admin.register(VKPost)
+# @admin.register(VKPost)
 class VKPostAdmin(ModelAdmin):
     list_display = ('post_id', 'date', 'vk_group_id', 'from_django')
     actions_on_top = True    # Показывать действия над таблицей

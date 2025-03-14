@@ -40,6 +40,7 @@ def detail_post(request, category_slug, post_slug):
     context = {
         'post': post,
         'title': post.title,
+        "SITE_HEADER": settings.UNFOLD["SITE_HEADER"],
     }
 
     return render(request, "vproger/post/detail.html", context)
@@ -63,6 +64,7 @@ def tag_posts(request, tag_slug):
     context = {
         "title": "Главная страница",
         "tags": "tags",
+        "SITE_HEADER": settings.UNFOLD["SITE_HEADER"]
     }
     return render(request, "vproger/tags_posts.html", context)
 
@@ -74,6 +76,7 @@ def list_categories(request):
     context = {
         "title": "Главная страница",
         "categories": "categories",
+        "SITE_HEADER": settings.UNFOLD["SITE_HEADER"]
     }
     return render(request, "vproger/list_news.html", context)
 

@@ -26,6 +26,7 @@ class PostAdmin(ModelAdmin):
         ('Анонс', {"classes": ["tab"], "fields": ['preview_image', 'preview_content']}),
         ('Основное', {"classes": ["tab"], "fields": ['detail_image', 'detail_content', 'detail_content_markdown']}),
         ('Дополнительно', {"classes": ["tab"], "fields": ['watched', 'category', 'tags']}),
+        ('СЕО', {"classes": ["tab"], "fields": ['seo_title', 'seo_description', 'seo_keywords', 'seo_canonical']}),
     )
 
     def get_form(self, request, obj=None, **kwargs):

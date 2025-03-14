@@ -8,6 +8,7 @@ urlpatterns = [
     path('markdownx/', include('markdownx.urls')),
     # path('<slug:category_slug>/<slug:post_slug>/', detail_post, name='detail_post'),
     path("", index),
+    path('posts/', index),
     path('posts/<slug:category_slug>/', category_posts, name='category_posts'),  # Страница категории
     path('posts/<slug:category_slug>/<slug:post_slug>/', detail_post, name='detail_post'),  # Детальн
     path('tags/<slug:tag_slug>/', tag_posts, name='tag_posts'),  # Детальн
