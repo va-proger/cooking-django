@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ post.get_meta_tags|safe }}
+    {% include 'favicon.html' %}
+    <meta name="robots" content="{% if site_settings.allow_indexing %}index,follow{% else %}noindex,nofollow{% endif %}">
+    <!-- Логотип Open Graph -->
+    {% if site_settings.logo %}
+        <meta property="og:image" content="{{ site_settings.logo.url }}">
+    {% endif %}
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+<!--    <script src="https://cdn.tailwindcss.com"></script>-->
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+    {% include 'metrica.html' %}
+</head>
+<body class="bg-light-background text-light-text flex flex-col min-h-screen">
+
+
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <button id="menu-toggle" class="lg:hidden text-light-text dark:text-dark-text">
+                &#9776;
+            </button>
+            <a class="flex align-center gap-1" href="{% url 'index' %}">
+                {% if site_settings.logo %}
+                    <img class=" w-100 max-w-[48px]" src="{{ site_settings.logo.url }}" alt="{{ SITE_HEADER }}">
+                {% endif %}
+                <div class="text-xl font-bold text-center lg:text-left flex items-center">{{ SITE_HEADER }}</div>
+            </a>
+
+            {% include "vproger/menu.html" %}  {# menu #}
+            <div class="wrapper-button flex justify-center items-center">
+                <div class="relative mr-4">
+                  <!-- Search Icon (visible on mobile) -->
+                  <button id="search-toggle" class="p-2 text-light-text dark:text-dark-text hover:text-light-primary dark:hover:text-dark-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </button>
+
+                  <!-- Search Popup (hidden by default) -->
+                  <div id="search-popup" class="hidden absolute right-0 top-full mt-2 w-screen max-w-md bg-white dark:bg-dark-card shadow-lg rounded-lg z-20 overflow-hidden lg:w-96">
+                    <div class="p-4">
+                      <!-- Search Input -->
+                      <div class="relative">
+                        <input
+                          type="text"
+                          id="search-input"
+                          placeholder="Поиск по сайту..."
+                          class="w-full p-2 pl-10 border border-light-border dark:border-dark-border rounded-lg bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary"
+                        >
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                          </svg>
+                        </div>
+                      </div>
+
+                      <!-- Search Results Container -->
+                        <div id="results-container">
+                          <!-- This sample result will be removed -->
+                          <a href="#" class="block p-3 hover:bg-light-background dark:hover:bg-dark-background rounded-lg mb-1 transition">
+                            <div class="flex items-start">
+
+                              <div class="ml-3 flex-grow">
+                                <h5 class="font-medium text-light-text dark:text-dark-text">Заголовок результата</h5>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">Небольшое описание или отрывок из текста с <span class="bg-light-primary/20 dark:bg-dark-primary/30">выделенным</span> ключевым словом поиска</p>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="py-2 text-sm text-gray-500 dark:text-gray-400 text-center hidden" id="no-results">
+                          Ничего не найдено
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <button id="theme-toggle" onclick="toggleTheme()" class="ml-4 px-3 py-2 bg-light-background dark:bg-dark-background rounded">🌙</button>
+            </div>
+        </div>
+            <!-- Search Component for Header -->
+     
+    </header>

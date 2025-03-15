@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Главная страница{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Результаты поиска</h1>
+
+    </div>
+
+    <form method="get" action="" class="mb-6 flex justify-center">
+        <input
+            type="text"
+            name="s"
+            value="{{ query }}"
+            placeholder="Введите ваш запрос"
+            class="w-full max-w-xl px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg
+                   bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+        >
+        <button
+            type="submit"
+            class="ml-4 px-6 py-2 bg-blue-600 text-white dark:bg-blue-500 dark:text-gray-100 rounded-lg
+                   hover:bg-blue-700 dark:hover:bg-blue-600 transition"
+        >
+        Найти
+        </button>
+</form>
+
+    {% if posts %}
+        <ul class="space-y-4">
+            {% for post in posts %}
+                <li class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+                    <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">Категория: {{ post.category.title }}</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Дата публикации: {{ post.created_at }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-center text-gray-500 dark:text-gray-400">Нет результатов для вашего запроса.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

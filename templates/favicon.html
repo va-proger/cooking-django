@@ -1,0 +1,35 @@
+    <!-- Favicon -->
+    {% if site_settings.favicon_ico %}
+        <link rel="icon" href="{{ site_settings.favicon_ico.url }}" type="image/x-icon">
+    {% endif %}
+    {% if site_settings.favicon_png_16 %}
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ site_settings.favicon_png.url }}">
+    {% endif %}
+    {% if site_settings.favicon_png_32 %}
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ site_settings.favicon_png.url }}">
+    {% endif %}
+     {% if site_settings.favicon_png_192 %}
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ site_settings.favicon_png.url }}">
+    {% endif %}
+     {% if site_settings.favicon_png_512 %}
+        <link rel="icon" type="image/png" sizes="512x512" href="{{ site_settings.favicon_png.url }}">
+    {% endif %}
+
+
+    <!-- Apple Touch Icon (для iOS) -->
+    {% if site_settings.apple_touch_icon %}
+        <link rel="apple-touch-icon" href="{{ site_settings.apple_touch_icon.url }}">
+    {% endif %}
+
+    <!-- Safari mask-icon -->
+    {% if site_settings.mask_icon %}
+        <link rel="mask-icon" href="{{ site_settings.mask_icon.url }}" color="{{ site_settings.mask_icon_color }}">
+    {% endif %}
+
+    <!-- PWA manifest.json -->
+    {% if site_settings.manifest_json %}
+        <link rel="manifest" href="{{ site_settings.manifest_json.url }}">
+    {% endif %}
+
+    <!-- Цвет статус-бара на мобильных -->
+    <meta name="theme-color" content="{{ site_settings.theme_color }}">
