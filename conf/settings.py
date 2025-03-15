@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "solo",
     "vk_bot",
     "markdownx",
+    'markdownify',
 ]
 
 MIDDLEWARE = [
@@ -144,7 +145,6 @@ UNFOLD = {
     "SITE_TITLE": "Личный блог - VPROGER",
     "SITE_HEADER": "VPROGER",
     "SITE_SUBHEADER": "Личный блог",
-    "DASHBOARD_CALLBACK": "vproger.views.dashboard_callback",
 }
 
 MEDIA_URL = "/"
@@ -172,9 +172,12 @@ TAILWIND_APP_NAME = 'vproger'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+# Markdown extensions
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
     'markdown.extensions.codehilite',
+    'markdown.extensions.tables',
+    'markdown.extensions.toc',
 ]
 
 MARKDOWNX_MARKDOWNIFY_FUNCTION = 'markdownx.utils.markdownify'

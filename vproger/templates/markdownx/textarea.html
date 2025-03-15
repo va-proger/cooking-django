@@ -1,0 +1,20 @@
+<textarea
+  name="{{ widget.name }}"
+  cols="{{ widget.attrs.cols }}"
+  rows="{{ widget.attrs.rows }}"
+  id="{{ widget.attrs.id }}"
+  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ widget.attrs.class }}"
+  {% for attr, value in widget.attrs.items %}
+    {% if attr not in "class cols rows id" %}
+      {{ attr }}="{{ value }}"
+    {% endif %}
+  {% endfor %}
+>{{ widget.value|default_if_none:"" }}</textarea>
+<style>
+    .bg-gray-50.rounded-lg.border.border-gray-300{
+        background: #111821;
+        border-radius: 0.5rem;
+        border-color: rgb(var(--color-base-700));
+        padding: 0.5rem;
+    }
+</style>

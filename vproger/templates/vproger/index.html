@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Главная страница{% endblock %}
+
+
+
+
+{% block content %}
+<div class="last-post px-4 py-6">
+   <h2 class="text-2xl font-bold mb-4">Последние посты</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {% for post in posts %}
+
+            <div  class="block bg-white dark:bg-dark-card shadow-md rounded-lg overflow-hidden relative h-64 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                <img src="{{ post.preview_image }}" alt="{{ post.title }}" class="w-full h-full object-cover absolute" loading="lazy">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4 text-white">
+                    <div class="mb-2">
+                         <a href="{{ post.category.get_absolute_url }}" class="bg-blue-500 text-xs rounded px-2 py-1 hover:bg-blue-600 transition-colors hover:underline">
+                            {{ post.category.title }}
+                        </a>
+                    </div>
+                    <h3 class="text-lg font-bold"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                    <a class="text-sm"  href="{{ post.get_absolute_url }}">{{ post.get_safe_preview }}</a>
+                    <div class="flex flex-wrap gap-1 mt-2">
+<!--                        {% for tag in post.tags.all %}-->
+<!--                            <a href="{{ tag.get_absolute_url }}" class="text-xs bg-gray-700 rounded px-2 py-1 hover:bg-gray-600 transition-colors hover:underline">-->
+<!--                                #{{ tag.name }}-->
+<!--                            </a>-->
+<!--                        {% endfor %}-->
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block main_page_clouds_tag %}
+
+    <div class="p-6  rounded-lg">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 text-center">Облако тегов</h2>
+        <div class="flex flex-wrap justify-center gap-3">
+
+        {% for tag in tags %}
+            <a href="{{ tag.get_absolute_url }}"
+               class="inline-flex items-center flex-wrap px-3 py-1 rounded-lg transition-all duration-300 ease-in-out
+                      text-white shadow-md transform scale-90 hover:scale-110 hover:rotate-3
+                      {% cycle 'bg-blue-500' 'bg-green-500' 'bg-red-500' 'bg-purple-500' 'bg-yellow-500' 'bg-pink-500' 'bg-indigo-500' 'bg-teal-500' as color_cycle %}
+                      {% cycle 'text-sm' 'text-base' 'text-lg' 'text-xl' 'text-2xl' as size_cycle %}">
+                #{{ tag.title }}
+            </a>
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+
+
+<nav id="menu" class="z-10 fixed top-0 left-0 w-64 h-full bg-white shadow-md transform -translate-x-full transition-transform lg:relative lg:translate-x-0 lg:flex lg:space-x-6 lg:w-auto lg:h-auto lg:bg-transparent lg:shadow-none">
+                <button id="close-menu" class="z-20 absolute top-2 right-2 text-light-text dark:text-dark-text lg:hidden">✖</button>
+                {% for item in menu %}
+                    <div class="relative group p-4">
+                        <a class="{% if request.path|slice:':|length:item.url|length' == item.url %}bg-light-background dark:bg-dark-background{% endif %} text-light-text dark:text-dark-text" href="{{ item.url }}">{{ item.title }}</a>
+                        {% if item.sub %}
+                            <div class="absolute hidden bg-white dark:bg-dark-card shadow-md group-hover:block">
+                                {% for sub in item.sub %}
+                                    <a href="{{ sub.get_absolute_url }}" class="{% if request.path == item.url|add:sub.slug|add:'/' or request.path == item.url|add:sub.slug %}bg-light-background dark:bg-dark-background{% endif %}
+                                        flex w-100 text-nowrap align-center gap-4 px-4 py-2 hover:bg-light-background dark:hover:bg-dark-background">{{ sub.title }}
+                                        <span>
+                                            {{ category.num_posts }}
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </nav>

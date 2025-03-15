@@ -29,3 +29,7 @@ def vk_callback(request):
         )
 
     return HttpResponse('ok')
+
+def dashboard_callback(request, context):
+    context.update({"custom_variable": "value"})
+    return context

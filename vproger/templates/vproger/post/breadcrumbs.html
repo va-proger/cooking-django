@@ -1,0 +1,8 @@
+  <!-- Breadcrumbs -->
+  <div class="text-sm text-gray-500 mb-6 flex items-center flex-wrap">
+    <a href="{% url 'index' %}" class="hover:text-blue-600 transition">Главная</a>
+    <span class="mx-2">›</span>
+    <a href="{% url 'category_posts' post.category.slug %}" class="hover:text-blue-600 transition">{{ post.category.title }}</a>
+    <span class="mx-2">›</span>
+    <span class="text-gray-700 font-medium">{{ post.title }}</span>
+  </div>
